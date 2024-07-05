@@ -84,7 +84,7 @@
 
     <style name="BodyTextStyle.GravityCenter" parent="BodyTextStyle">
         <item name="android:paddingTop">0dp</item>
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="android:gravity">center</item>
         <item name="android:fontFamily">@font/nunito_sans_bold</item>
         <item name="android:lineHeight" tools:ignore="NewApi">28dp</item>

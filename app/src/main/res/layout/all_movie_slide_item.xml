@@ -1,49 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="HomeResult"
+            type="com.movies.streamy.model.dataSource.network.data.response.homeData.HomeResult"
+            />
     </data>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+
         android:background="@color/black">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/image"
-            android:scaleType="fitXY" />
+        <FrameLayout
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:id="@+id/frame">
 
-        <TextView
-            style="@style/CustomTextStyle"
-            android:id="@+id/MovieName"
-            android:textStyle="bold"
-            android:text="@string/movie_name"
-            android:layout_centerInParent="true"
-            android:layout_below="@+id/image" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/MovieName">
-
-            <TextView
-                style="@style/CustomTextStyle"
-                android:id="@+id/Type"
-                android:text="@string/type"
-
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@tools:sample/avatars"
+                android:id="@+id/image"
                 />
 
             <TextView
-                android:text="@string/genre"
+                android:id="@+id/Rating"
                 style="@style/CustomTextStyle"
-                android:id="@+id/genre"></TextView>
+                android:layout_gravity="bottom|end"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="@dimen/margin_20"
+                android:background="@drawable/rating_background"
+                android:padding="4dp"
+                android:text="Rating"
+                android:textColor="@android:color/white"
+                app:drawableStartCompat="@drawable/ic_baseline_star_rate"
+                android:textSize="14sp"
+                tools:text="0.0" />
+        </FrameLayout>
 
-        </LinearLayout>
+
+        <TextView
+            style="@style/CustomTextStyle"
+            android:gravity="center_horizontal"
+            android:id="@+id/MovieName"
+            android:textStyle="bold"
+            android:layout_width="150dp"
+            android:text="@string/movie_name"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/frame" />
+
+
+
+
 
 
     </RelativeLayout>

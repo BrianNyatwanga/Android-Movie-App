@@ -5,6 +5,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+//    id("com.google.gms.google-services")
 }
 
 android {
@@ -35,7 +36,7 @@ android {
     }
 
     buildFeatures {
-//        viewBinding = true
+       viewBinding = true
         dataBinding = true
     }
 
@@ -47,18 +48,21 @@ android {
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.FlowPreview"
 
     }
-
     val apiKey: String = gradleLocalProperties(rootDir).getProperty("API_KEY")
 
     flavorDimensions("api")
     productFlavors {
         create("production") {
             resValue("string", "app_name", "Streamy")
-            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/\"")
+            buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "POSTER_URL", "\"https://image.tmdb.org/t/p/w500\"")
+
             buildConfigField("String", "API_KEY", apiKey)
         }
     }
 }
+
+
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.8.21")
@@ -69,6 +73,9 @@ dependencies {
 
     //hilt
     implementation("com.google.dagger:hilt-android:2.44")
+    implementation("com.google.firebase:firebase-database:21.0.0")
+    implementation("androidx.fragment:fragment-ktx:1.5.6")
+
     kapt("com.google.dagger:hilt-android-compiler:2.44")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
@@ -77,6 +84,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0-alpha02")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.exifinterface:exifinterface:1.3.4")
+
 
     // Retrofit dependencies
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -114,6 +122,10 @@ dependencies {
     //UI
     implementation("com.github.skydoves:powerspinner:1.1.9")
 
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt ("com.github.bumptech.glide:compiler:4.12.0")
+
     //Tests
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     implementation("junit:junit:4.13.2")
@@ -124,8 +136,17 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.9.3")
+
+    //image glider
+    implementation("com.github.bumptech.glide:glide:4.12.0")
+    kapt("com.github.bumptech.glide:compiler:4.12.0")
+
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
+
+
 }
 
 kapt {
     correctErrorTypes = true
 }
+

@@ -2,37 +2,19 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.movies.streamy.view.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_movie"
-            app:destination="@id/navigation_movie" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_profile"
-            app:destination="@id/navigation_profile" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_series"
-            app:destination="@id/navigation_series" />
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_favorite"
-            app:destination="@id/navigation_favorite" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_series"
         android:name="com.movies.streamy.view.series.SeriesFragment"
         android:label="@string/title_series"
         tools:layout="@layout/fragment_series" />
 
-    <fragment
-        android:id="@+id/navigation_movie"
-        android:name="com.movies.streamy.view.movies.MoviesFragment"
-        android:label="@string/title_movies"
-        tools:layout="@layout/fragment_movies"/>
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.movies.streamy.view.favorite.FavoriteFragment"
@@ -44,4 +26,19 @@
         android:name="com.movies.streamy.view.more.MoreFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_more" />
+    <fragment
+        android:id="@+id/navigation_movies"
+        android:name="com.movies.streamy.view.movies.MoviesFragment"
+        android:label="MoviesFragment"/>
+    <fragment
+        android:id="@+id/nowPlayingMoviesFragment"
+        android:name="com.movies.streamy.view.movies.NowPlayingMoviesFragment">
+        <action
+            android:id="@+id/actionNowPlayingMoviesFragmentToMovieDetailsFragment"
+            app:destination="@id/nowPlayingMovieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nowPlayingMovieDetailsFragment"
+        android:name="com.movies.streamy.view.moviedetails.NowPlayingMovieDetailsFragment" />
 </navigation>

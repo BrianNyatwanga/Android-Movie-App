@@ -1,80 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="FavMovieEntity"
+            type="com.movies.streamy.room.favorites.FavMovieEntity"
+            />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="@color/black">
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/imageCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
+        android:background="@color/black"
+        android:paddingBottom="10dp">
             <ImageView
                 android:id="@+id/image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY" />
-        </androidx.cardview.widget.CardView>
-
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:paddingEnd="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/avatars"/>
         <TextView
             android:id="@+id/MovieName"
             style="@style/CustomTextStyle"
             android:textStyle="bold"
             android:text="@string/movie_name"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" />
+            app:layout_constraintStart_toEndOf="@+id/image"
+
+           />
+        <TextView
+            style="@style/CustomTextStyle"
+            android:id="@+id/textType"
+            android:text="@string/type"
+            app:layout_constraintTop_toBottomOf="@id/MovieName"
+            app:layout_constraintStart_toEndOf="@id/image"
+            />
+
 
         <TextView
             android:id="@+id/Type"
             style="@style/CustomTextStyle"
             android:text="@string/type"
             app:layout_constraintTop_toBottomOf="@+id/MovieName"
-            app:layout_constraintStart_toEndOf="@+id/imageCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" />
+            app:layout_constraintStart_toEndOf="@id/textType"
+
+            />
+        <TextView
+            style="@style/CustomTextStyle"
+            android:id="@+id/textYear"
+            android:text="@string/Date"
+            app:layout_constraintTop_toBottomOf="@id/Type"
+            app:layout_constraintStart_toEndOf="@id/image"
+         />
 
         <TextView
             android:id="@+id/year"
             style="@style/CustomTextStyle"
-            android:text="@string/year"
-            app:layout_constraintTop_toBottomOf="@+id/Type"
-            app:layout_constraintStart_toEndOf="@+id/imageCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" />
+            android:text="@string/Date"
+            app:layout_constraintTop_toBottomOf="@id/Type"
+            app:layout_constraintStart_toEndOf="@id/textYear"
+
+            />
+        <TextView
+            style="@style/CustomTextStyle"
+            android:id="@+id/textlanguage"
+            android:text="@string/Language"
+            app:layout_constraintTop_toBottomOf="@id/year"
+            app:layout_constraintStart_toEndOf="@id/image"
+        />
 
         <TextView
-            android:id="@+id/country"
+            android:id="@+id/language"
             style="@style/CustomTextStyle"
-            android:text="@string/country"
-            app:layout_constraintTop_toBottomOf="@+id/year"
-            app:layout_constraintStart_toEndOf="@+id/imageCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" />
+            android:text="@string/Language"
+            app:layout_constraintTop_toBottomOf="@id/year"
+            app:layout_constraintStart_toEndOf="@id/textlanguage"
+            />
+
 
         <TextView
-            android:id="@+id/genre"
             style="@style/CustomTextStyle"
-            android:text="@string/genre"
-            app:layout_constraintTop_toBottomOf="@+id/country"
-            app:layout_constraintStart_toEndOf="@+id/imageCard"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5" />
+            android:text="@string/Rating"
+            android:id="@+id/textVote"
+            app:layout_constraintTop_toBottomOf="@+id/language"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            />
 
+
+        <TextView
+            android:id="@+id/Rating"
+            style="@style/CustomTextStyle"
+            android:text="@string/Rating"
+            app:layout_constraintTop_toBottomOf="@+id/language"
+            app:layout_constraintStart_toEndOf="@id/textVote"
+         />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

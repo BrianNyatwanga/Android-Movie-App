@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#000000"
         tools:context=".view.more.MoreFragment">
 
     <androidx.constraintlayout.widget.Guideline
@@ -74,7 +75,7 @@
         android:fontFamily="@font/nunito_sans_bold"
         android:letterSpacing="0.03"
         android:text="John Doe"
-        android:textColor="@color/md_black_1000"
+        android:textColor="@color/white"
         android:textSize="@dimen/font_h6_size"
         app:layout_constraintStart_toEndOf="@+id/profile_image"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
@@ -87,7 +88,7 @@
         android:fontFamily="@font/nunito_sans_semibold"
         android:letterSpacing="0.03"
         android:text="Company Name"
-        android:textColor="@color/md_grey_600"
+        android:textColor="@color/white"
         android:textSize="@dimen/font_title_size"
         app:layout_constraintStart_toStartOf="@+id/tv_user_name"
         app:layout_constraintTop_toBottomOf="@+id/tv_user_name" />
@@ -156,7 +157,7 @@
                     android:letterSpacing="0.03"
                     android:text="@string/text_get_help"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/md_grey_800"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/font_title_size"
                     app:layout_constraintBottom_toBottomOf="@+id/imageItem"
                     app:layout_constraintEnd_toStartOf="@+id/imageItemBtn"
@@ -216,7 +217,7 @@
                     android:letterSpacing="0.03"
                     android:text="@string/text_logout"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/md_grey_800"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/font_title_size"
                     app:layout_constraintBottom_toBottomOf="@+id/iv_logout"
                     app:layout_constraintEnd_toStartOf="@+id/iv_right"
@@ -234,7 +235,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/tv_logout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/tv_logout"
-                    app:tint="@color/md_grey_800" />
+                    app:tint="@color/white" />
 
                 <View
                     android:layout_width="match_parent"
@@ -254,7 +255,7 @@
                 android:letterSpacing="0.03"
                 android:text="Version : 1.0.0"
                 android:textAlignment="viewStart"
-                android:textColor="@color/md_grey_700"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cl_logout" />

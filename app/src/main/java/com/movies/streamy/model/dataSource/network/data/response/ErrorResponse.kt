@@ -6,4 +6,3 @@ data class ErrorResponse(
     @SerializedName("data")
     val message: String?,
 )
-

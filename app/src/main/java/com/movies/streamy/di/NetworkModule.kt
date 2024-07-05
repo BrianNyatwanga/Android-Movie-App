@@ -1,7 +1,5 @@
 package com.movies.streamy.di
 
-
-
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonDeserializationContext
@@ -13,11 +11,15 @@ import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
 import com.haroldadmin.cnradapter.NetworkResponseAdapterFactory
 import com.movies.streamy.BuildConfig
+import com.movies.streamy.model.dataSource.implementation.TrailerImpl
+import com.movies.streamy.model.dataSource.network.apiService.TrailerInterface
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -29,13 +31,15 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     private fun baseUrl() = BuildConfig.BASE_URL
-
+    val token = ProvidesTokenInterceptor()
 
     @Provides
     fun providesLoggingInterceptor(): HttpLoggingInterceptor {
@@ -47,15 +51,22 @@ object NetworkModule {
         }
         return loggingInterceptor
     }
+    class ProvidesTokenInterceptor(): Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val req = chain.request().newBuilder().addHeader("Authorization", "Bearer ${BuildConfig.API_KEY}").build()
+            return chain.proceed(req)
+        }
+
+    }
 
     @ProvideOkHttpClient
     @Provides
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(token)
             .addInterceptor(loggingInterceptor)
             .build()
     }
-
 
     @Provides
     fun provideConverterFactory(): Converter.Factory {
@@ -73,12 +84,23 @@ object NetworkModule {
         converterFactory: Converter.Factory,
     ): Retrofit =
         Retrofit.Builder()
-            .baseUrl(baseUrl())
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(converterFactory)
             .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .client(okHttpClient)
             .build()
 
+    @Provides
+    @Singleton
+    fun provideTrailerInterface(retrofit: Retrofit): TrailerInterface {
+        return retrofit.create(TrailerInterface::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTrailerImpl(trailerInterface: TrailerInterface): TrailerImpl {
+        return TrailerImpl(trailerInterface)
+    }
 }
 
 class GsonUTCDateAdapter : JsonSerializer<Date?>, JsonDeserializer<Date?> {
@@ -115,3 +137,5 @@ class GsonUTCDateAdapter : JsonSerializer<Date?>, JsonDeserializer<Date?> {
         dateFormat.timeZone = TimeZone.getTimeZone("UTC")
     }
 }
+
+

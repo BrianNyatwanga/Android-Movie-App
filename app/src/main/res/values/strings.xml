@@ -24,8 +24,6 @@
     <string name="cancel">Cancel</string>
     <string name="logout">Log out</string>
     <string name="logout_message">Are you sure you want to logout?</string>
-    <!--    <string name="text_manage_parking">MANAGE PARKING</string>-->
-    <string name="sign_out">Sign Out</string>
 
 
     <!-- Strings used for fragments for navigation -->
@@ -40,5 +38,16 @@
     <string name="year">Year</string>
     <string name="country">Country</string>
     <string name="genre">Genre</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="popular">Popular</string>
+
+    <string name="Trending">All Movies/Series Trending</string>
+    <string name="Detail">Detail</string>
+    <string name="Trailer">Play Trailer</string>
+    <string name="Favorite">Favorite</string>
+    <string name="Rating">Rating</string>
+    <string name="Language">Language</string>
+    <string name="Date">Release: </string>
 
 </resources>
