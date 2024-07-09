@@ -8,11 +8,22 @@
             name="viewModel"
             type="com.movies.streamy.view.series.TrendingSeriesViewModel" />
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.series.trending.TrendingSeriesFragment">
+        tools:context=".ui.series.latest.TrendingSeriesFragment">
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameTwo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/seriesRecyclerView"
@@ -84,4 +95,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

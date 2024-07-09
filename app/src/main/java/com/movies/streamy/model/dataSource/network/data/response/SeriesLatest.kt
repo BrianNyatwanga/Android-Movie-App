@@ -1,6 +1,7 @@
 package com.movies.streamy.model.dataSource.network.data.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class SeriesLatest(
     @SerializedName("backdrop_path")
@@ -41,4 +42,4 @@ data class SeriesLatest(
 
     @SerializedName("vote_count")
     val voteCount: Int
-)
+) : Serializable

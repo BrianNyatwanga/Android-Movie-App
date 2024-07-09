@@ -40,5 +40,5 @@
 
     <fragment
         android:id="@+id/nowPlayingMovieDetailsFragment"
-        android:name="com.movies.streamy.view.moviedetails.NowPlayingMovieDetailsFragment" />
+        android:name="com.movies.streamy.view.movies.moviedetails.NowPlayingMovieDetailsFragment" />
 </navigation>

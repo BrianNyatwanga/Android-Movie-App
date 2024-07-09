@@ -28,19 +28,32 @@ import com.movies.streamy.room.favorites.FavMovieEntity
 import com.movies.streamy.room.favorites.FavoriteViewModelFactory
 import com.movies.streamy.utils.Prefs
 import androidx.navigation.fragment.findNavController
-import com.movies.streamy.view.moviedetails.NowPlayingMovieDetailsFragment
+import com.movies.streamy.model.dataSource.network.data.response.PopularMovieResult
+import com.movies.streamy.model.dataSource.network.data.response.SeriesPopular
+import com.movies.streamy.view.movies.moviedetails.NowPlayingMovieDetailsFragment
+import com.movies.streamy.view.movies.adapters.NowPlayingMovieAdapter
+import com.movies.streamy.view.movies.adapters.PopularMovieAdapter
+import com.movies.streamy.view.series.Adapters.LatestSeriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+
 @ExperimentalCoroutinesApi
 @AndroidEntryPoint
-class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
+class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener, AdapterSeries.OnItemClickListener, AdapterPopularMovie.OnItemClickListener {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var viewModel: HomeViewModel
     private lateinit var prefs: Prefs
     private lateinit var homeAdapter: HomeAdapter
     private lateinit var favViewModel: FavMovieDBViewModel
+    private lateinit var latestSeriesAdapter: LatestSeriesAdapter
+    private lateinit var adapterSeries: AdapterSeries
+    private lateinit var adapterPopularMovie : AdapterPopularMovie
+    private lateinit var latestMovieAdapter: NowPlayingMovieAdapter
+
 
     private var selectedItem: HomeResult? = null
+    private var clickedItem : SeriesPopular? = null
+    private var movieItem : PopularMovieResult? = null
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +65,11 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         val repository = FavMovieDBRepository(database.FavMovieDao())
         val factory = FavoriteViewModelFactory(repository)
         favViewModel = ViewModelProvider(this, factory).get(FavMovieDBViewModel::class.java)
+        // Initialize the adapter with the click listener
+        adapterSeries = AdapterSeries(this)
+        adapterPopularMovie = AdapterPopularMovie(this)
+        latestSeriesAdapter= LatestSeriesAdapter {  }
+        latestMovieAdapter = NowPlayingMovieAdapter {  }
     }
 
     override fun onCreateView(
@@ -74,7 +92,7 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         viewModel.trailerList.observe(viewLifecycleOwner, Observer { trailerList ->
             if (viewModel.trailerVisible.value == true) {
                 trailerList.firstOrNull()?.let { trailer ->
-                        playTrailer(trailer)
+                    playTrailer(trailer)
                 } ?: run {
                     Toast.makeText(requireContext(), "Trailer not found", Toast.LENGTH_SHORT).show()
                 }
@@ -110,6 +128,69 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
             }
         })
 
+        viewModel.popularMovie.observe(viewLifecycleOwner, Observer { movieList ->
+            if (movieList.isNullOrEmpty()) {
+                // Handle empty case if needed
+            } else {
+                adapterPopularMovie.asyncList.submitList(movieList)
+                binding.popularMovie.apply {
+                    layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    setHasFixedSize(true)
+                    adapter = adapterPopularMovie
+                }
+            }
+        })
+
+        viewModel.SeriesPopular.observe(viewLifecycleOwner, Observer { movieList ->
+            if (movieList.isNullOrEmpty()) {
+                // Handle empty case if needed
+            } else {
+                adapterSeries.asyncList.submitList(movieList)
+                binding.popularSeries.apply {
+                    layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    setHasFixedSize(true)
+                    adapter = adapterSeries
+                }
+            }
+        })
+        viewModel.SeriesLatest.observe(viewLifecycleOwner, Observer { movieList ->
+            if (movieList.isNullOrEmpty()) {
+                // Handle empty case if needed
+            } else {
+                latestSeriesAdapter.submitList(movieList)
+                binding.latestSeries.apply {
+                    layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    setHasFixedSize(true)
+                    adapter = latestSeriesAdapter
+                }
+            }
+        })
+        viewModel.latestMovie.observe(viewLifecycleOwner, Observer { movieList ->
+            if (movieList.isNullOrEmpty()) {
+                // Handle empty case if needed
+            } else {
+                latestMovieAdapter.asyncList.submitList(movieList)
+                binding.latestMovie.apply {
+                    layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    setHasFixedSize(true)
+                    adapter = latestMovieAdapter
+                }
+            }
+        })
+
+
+
+        binding.btnMovie.setOnClickListener {
+            binding.popularMovie.visibility = View.VISIBLE
+            binding.popularSeries.visibility = View.GONE
+        }
+
+        binding.btnSeries.setOnClickListener {
+            binding.popularMovie.visibility = View.GONE
+            binding.popularSeries.visibility = View.VISIBLE
+
+        }
+
         return binding.root
     }
 
@@ -121,32 +202,15 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
     private fun initViews() {
         showShimmerEffect()
         viewModel.getMovieLists()
+        viewModel.getPopularSeries()
+        viewModel.getPopularMovies()
+        viewModel.getLatestSeries()
+        viewModel.getLatestMovies()
         setUpObservers()
     }
 
     private fun setUpObservers() {
-        viewModel.movieList.observe(viewLifecycleOwner, ::setUpRecyclerView)
         viewModel.viewState.observe(viewLifecycleOwner, ::onViewStateChanged)
-    }
-
-    private fun setUpRecyclerView(movieList: List<HomeResult?>?) {
-        if (movieList.isNullOrEmpty()) {
-            // Handle empty case
-        } else {
-            homeAdapter.asyncList.submitList(movieList)
-            binding.AllShows.apply {
-                layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                setHasFixedSize(true)
-                adapter = homeAdapter
-                addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        super.onScrolled(recyclerView, dx, dy)
-                        applyScaleTransformation(recyclerView)
-                    }
-                })
-            }
-            binding.AllShows.post { applyScaleTransformation(binding.AllShows) }
-        }
     }
 
     private fun onViewStateChanged(state: HomeViewState) {
@@ -186,6 +250,15 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
                 updateFavoriteIcon(isFavorite)
             })
         }
+    }
+    override fun onItemMovieClick(item: PopularMovieResult) {
+        movieItem = item
+        Toast.makeText(context, "Selected: ${item.title ?: item.title}", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemSeriesClick(item: SeriesPopular){
+        clickedItem = item
+        Toast.makeText(context, "${item.name}", Toast.LENGTH_SHORT).show()
     }
 
     private fun playTrailer(trailer: TrailerResult) {
@@ -242,14 +315,13 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
     }
 
     private fun showDetails(item: HomeResult) {
-    Toast.makeText(context, "Show details", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Show details", Toast.LENGTH_SHORT).show()
         val fragment = HomeTrendingDetails.newInstance(item)
         binding.frameOne.visibility = View.VISIBLE
         binding.Homepage.visibility = View.GONE
         val tras = childFragmentManager.beginTransaction().replace(binding.frameOne.id, fragment)
         tras.commit()
     }
-
 
     private fun applyScaleTransformation(recyclerView: RecyclerView) {
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -269,4 +341,3 @@ class HomeFragment : Fragment(), HomeAdapter.OnItemClickListener {
         }
     }
 }
-

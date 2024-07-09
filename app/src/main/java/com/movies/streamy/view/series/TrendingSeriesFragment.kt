@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,8 @@ import com.movies.streamy.databinding.FragmentTrendingSeriesBinding
 import com.movies.streamy.model.dataSource.network.data.response.SeriesPopular
 import com.movies.streamy.model.dataSource.network.data.response.SeriesTrending
 import com.movies.streamy.view.series.Adapters.TrendingSeriesAdapter
+import com.movies.streamy.view.series.seriesDetails.PopularSeriesDetailsFragment
+import com.movies.streamy.view.series.seriesDetails.TrendingSeriesDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -111,6 +114,11 @@ class TrendingSeriesFragment : Fragment() {
     }
 
     private fun itemClicked(data: SeriesTrending) {
+        val fragment = TrendingSeriesDetailsFragment.newInstance(data)
+        binding.frame.visibility = View.VISIBLE
+        binding.frameTwo.visibility = View.GONE
+        val trasaction = childFragmentManager.beginTransaction().replace(binding.frame.id, fragment)
+        trasaction.commit()
         // Handle item click
     }
 

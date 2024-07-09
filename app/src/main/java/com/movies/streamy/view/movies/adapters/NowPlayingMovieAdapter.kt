@@ -4,13 +4,15 @@ import com.movies.streamy.databinding.RowMovieItemBinding
 import com.movies.streamy.model.dataSource.network.data.response.NowPlayingMovieResult
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 class NowPlayingMovieAdapter(
-    private val onItemClicked: (NowPlayingMovieResult) -> Unit
+    private val onItemClicked: (NowPlayingMovieResult) -> Unit,
+//    private val itemClickListener : OnItemClickListener
 ) :
     RecyclerView.Adapter<NowPlayingMovieAdapter.NowPlayingMovieViewHolder>(
     ) {

@@ -3,6 +3,7 @@ package com.movies.streamy.view.series.Adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,9 @@ class LatestSeriesAdapter(private val clicked: (Series: SeriesLatest) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(data: SeriesLatest?) {
+            binding.root.setOnClickListener{
+
+            }
             binding.executePendingBindings()
             binding.apply {
                 root.setOnClickListener {
@@ -48,6 +52,8 @@ class LatestSeriesAdapter(private val clicked: (Series: SeriesLatest) -> Unit) :
 
                 movieRating.text = voteAverage
             }
+
+
 
         }
     }

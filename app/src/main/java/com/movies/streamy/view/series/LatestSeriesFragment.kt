@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.movies.streamy.model.dataSource.network.data.response.SeriesLatest
 import com.movies.streamy.utils.Prefs
 import com.movies.streamy.view.series.Adapters.LatestSeriesAdapter
 import com.movies.streamy.view.series.SeriesViewState
+import com.movies.streamy.view.series.seriesDetails.LatestSeriesDetailsFragment
 import com.series.streamy.view.series.LatestSeriesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -57,7 +60,6 @@ class LatestSeriesFragment : Fragment() {
     }
 
     private fun initViews() {
-
         showShimmerEffect()
         setUpObservers()
         viewModel.getLatestSeries()
@@ -128,14 +130,10 @@ class LatestSeriesFragment : Fragment() {
 
     private fun itemClicked(data: SeriesLatest) {
         // Handle item click
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.rvSeries.adapter = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+        val fragment = LatestSeriesDetailsFragment.newInstance(data)
+        binding.frame.visibility = View.VISIBLE
+        binding.frameTwo.visibility = View.GONE
+        val tras = childFragmentManager.beginTransaction().replace(binding.frame.id, fragment)
+            tras.commit()
     }
 }

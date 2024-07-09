@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,8 @@ import com.movies.streamy.model.dataSource.network.data.response.SeriesLatest
 import com.movies.streamy.model.dataSource.network.data.response.SeriesPopular
 import com.movies.streamy.view.series.Adapters.PopularSeriesAdapter
 import com.movies.streamy.view.series.SeriesViewState
+import com.movies.streamy.view.series.seriesDetails.LatestSeriesDetailsFragment
+import com.movies.streamy.view.series.seriesDetails.PopularSeriesDetailsFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -98,13 +101,11 @@ class PopularSeriesFragment : Fragment() {
     }
 
 
-
-    private fun itemClicked(series: SeriesPopular) {
-        // Handle item click
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.series1.adapter = null
+    private fun itemClicked(data: SeriesPopular) {
+        val fragment = PopularSeriesDetailsFragment.newInstance(data)
+        binding.frame.visibility = View.VISIBLE
+        binding.frameTwo.visibility = View.GONE
+        val trasaction = childFragmentManager.beginTransaction().replace(binding.frame.id, fragment)
+        trasaction.commit()
     }
 }

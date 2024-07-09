@@ -1,4 +1,4 @@
-package com.movies.streamy.view.moviedetails
+package com.movies.streamy.view.movies.moviedetails
 
 
 import android.content.Intent
@@ -37,7 +37,6 @@ class PopularMovieDetailsFragment : Fragment() {
             val intent = Intent(requireContext(), MainActivity::class.java)
             requireContext().startActivity(intent)
         }
-//        val voteAverage = floor(movie!!.voteAverage!!)
         val voteAverage = String.format("%.1f", movie!!.voteAverage!!)
 
         binding.apply {

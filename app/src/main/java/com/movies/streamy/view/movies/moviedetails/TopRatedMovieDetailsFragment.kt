@@ -1,4 +1,4 @@
-package com.movies.streamy.view.moviedetails
+package com.movies.streamy.view.movies.moviedetails
 
 
 import android.content.Intent

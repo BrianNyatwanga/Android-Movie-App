@@ -18,7 +18,7 @@ import com.movies.streamy.databinding.FragmentMoviesTopRatedBinding
 import com.movies.streamy.model.dataSource.network.data.response.TopRatedMovieResult
 import com.movies.streamy.utils.Prefs
 import com.movies.streamy.utils.observe
-import com.movies.streamy.view.moviedetails.TopRatedMovieDetailsFragment
+import com.movies.streamy.view.movies.moviedetails.TopRatedMovieDetailsFragment
 import com.movies.streamy.view.movies.adapters.TopRatedMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -10,8 +10,8 @@ import retrofit2.Response
 
 interface IMoviesDataSource {
     suspend fun getMovieIds(): NetworkResponse<MovieIdResponse, ErrorResponse>
-
-    suspend fun getPopularMovies(): Response<PopularMovieResponse>
-    suspend fun getTopRatedMovies(): Response<TopRatedMovieResponse>
-    suspend fun getNowPlayingMovies(): Response<NowPlayingMovieResponse>
+    suspend fun getPopularMovies(): NetworkResponse<PopularMovieResponse, ErrorResponse>
+    suspend fun getTopRatedMovies(): NetworkResponse<TopRatedMovieResponse, ErrorResponse>
+    suspend fun getNowPlayingMovies(): NetworkResponse<NowPlayingMovieResponse, ErrorResponse>
+    suspend fun getNowPlayingMovies2(): NetworkResponse<NowPlayingMovieResponse, ErrorResponse>
 }

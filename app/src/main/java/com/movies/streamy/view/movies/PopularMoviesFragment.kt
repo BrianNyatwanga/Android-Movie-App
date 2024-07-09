@@ -17,7 +17,7 @@ import com.movies.streamy.databinding.FragmentMoviesPopularBinding
 import com.movies.streamy.model.dataSource.network.data.response.PopularMovieResult
 import com.movies.streamy.utils.Prefs
 import com.movies.streamy.utils.observe
-import com.movies.streamy.view.moviedetails.PopularMovieDetailsFragment
+import com.movies.streamy.view.movies.moviedetails.PopularMovieDetailsFragment
 import com.movies.streamy.view.movies.adapters.PopularMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi

@@ -15,4 +15,9 @@
         <item name="tabSelectedTextColor">@color/colorPrimary</item>
         <item name="tabTextColor">@color/white</item>
     </style>
+
+    <style name="CustomButton" parent="Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/colorPrimaryLight</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>

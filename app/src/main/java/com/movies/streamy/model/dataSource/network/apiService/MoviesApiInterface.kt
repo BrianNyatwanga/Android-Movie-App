@@ -6,7 +6,6 @@ import com.movies.streamy.model.dataSource.network.data.response.MovieIdResponse
 import com.movies.streamy.model.dataSource.network.data.response.PopularMovieResponse
 import com.movies.streamy.model.dataSource.network.data.response.NowPlayingMovieResponse
 import com.movies.streamy.model.dataSource.network.data.response.TopRatedMovieResponse
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -15,16 +14,16 @@ interface MoviesApiInterface {
     //NOW PLAYING
     @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(
-        @Query("page") page: Int = 1,
+        @Query("page") page: Int,
         @Query("language") language: String = "en-US"
-    ): Response<NowPlayingMovieResponse>
+    ): NetworkResponse<NowPlayingMovieResponse, ErrorResponse>
 
     //TOP RATED
     @GET("movie/top_rated")
     suspend fun getTopRatedMovies(
         @Query("page") page: Int = 1,
         @Query("language") language: String = "en-US"
-    ): Response<TopRatedMovieResponse>
+    ): NetworkResponse<TopRatedMovieResponse, ErrorResponse>
 
     //MOVIE CHANGES
     @GET("movie/changes")
@@ -38,7 +37,13 @@ interface MoviesApiInterface {
     suspend fun getPopularMovies(
         @Query("page") page: Int = 1,
         @Query("language") language: String = "en-US"
-    ): Response<PopularMovieResponse>
+    ): NetworkResponse<PopularMovieResponse, ErrorResponse>
+
+//    @GET("movie/airing_today")
+//    suspend fun getLatestMovies(
+//        @Query("page") page: Int = 1,
+//        @Query("language") language: String = "en-US"
+//    ): Response<PopularMovieResponse>
 
 
 

@@ -21,13 +21,16 @@ class MoviesRepositoryImpl @Inject constructor(
     override suspend fun getMovieIds(): NetworkResponse<MovieIdResponse, ErrorResponse> {
         return moviesDataSource.getMovieIds()
     }
-    override suspend fun getPopularMovies(): Response<PopularMovieResponse> {
+    override suspend fun getPopularMovies(): NetworkResponse<PopularMovieResponse, ErrorResponse> {
     return moviesDataSource.getPopularMovies()
     }
-    override suspend fun getNowPlayingMovies(): Response<NowPlayingMovieResponse> {
+    override suspend fun getNowPlayingMovies(): NetworkResponse<NowPlayingMovieResponse, ErrorResponse> {
         return moviesDataSource.getNowPlayingMovies()
     }
-            override suspend fun getTopRatedMovies(): Response<TopRatedMovieResponse> {
+    override suspend fun getNowPlayingMovies2(): NetworkResponse<NowPlayingMovieResponse, ErrorResponse> {
+        return moviesDataSource.getNowPlayingMovies2()
+    }
+            override suspend fun getTopRatedMovies(): NetworkResponse<TopRatedMovieResponse, ErrorResponse> {
     return moviesDataSource.getTopRatedMovies()
 }
 }

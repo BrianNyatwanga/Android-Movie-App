@@ -17,7 +17,7 @@ import com.movies.streamy.databinding.FragmentMoviesNowPlayingBinding
 import com.movies.streamy.model.dataSource.network.data.response.NowPlayingMovieResult
 import com.movies.streamy.utils.Prefs
 import com.movies.streamy.utils.observe
-import com.movies.streamy.view.moviedetails.NowPlayingMovieDetailsFragment
+import com.movies.streamy.view.movies.moviedetails.NowPlayingMovieDetailsFragment
 import com.movies.streamy.view.movies.adapters.NowPlayingMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -56,10 +56,19 @@ class NowPlayingMoviesFragment : Fragment() {
         }
         binding.frameOne.visibility = View.GONE
 
-        viewModel.nowPlayingMovies.observe(viewLifecycleOwner, Observer {
-            Log.d(TAG, it.toString())
-            nowPlayingMovieAdapter.asyncList.submitList(it)
+        val allMovies = ArrayList<NowPlayingMovieResult>()
+
+
+        viewModel.nowPlayingMovies.observe(viewLifecycleOwner, Observer { movies ->
+            allMovies.addAll(movies)
         })
+        viewModel._nowPlayingMovies2.observe(viewLifecycleOwner, Observer {
+            Log.d(TAG, it.toString())
+            allMovies.addAll(it)
+        })
+        nowPlayingMovieAdapter.asyncList.submitList(allMovies)
+        Log.d(TAG, allMovies.toString())
+
 
         return binding.root
     }

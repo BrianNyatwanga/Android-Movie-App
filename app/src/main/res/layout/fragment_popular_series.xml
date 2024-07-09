@@ -13,7 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.series.popular.PopularSeriesFragment">
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameTwo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/series1"
             android:layout_width="match_parent"
@@ -83,5 +92,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
